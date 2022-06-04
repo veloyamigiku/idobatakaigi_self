@@ -43,7 +43,8 @@ export default function SignIn({ setName }) {
   const classes = useStyles();
   const [disabled, setDisabled] = useState(true);
   const [string, setString] = useState('');
-  console.log(string);
+  const [isComposed, setIsComposed] = useState(false);
+  //console.log({disabled, string, isComposed});
 
   useEffect(() => {
     const disabled = string === '';
@@ -70,11 +71,20 @@ export default function SignIn({ setName }) {
             autoFocus
             onChange={(e) => setString(e.target.value)}
             onKeyDown={(e) => {
-              console.log({ key: e.key });
+              //console.log({ key: e.key });
+              if (isComposed) return;
               if (e.key === 'Enter') {
                 setName(e.target.value);
                 e.preventDefault();
               }
+            }}
+            onCompositionStart={() => {
+              //console.log('日本語入力が始まりました');
+              setIsComposed(true);
+            }}
+            onCompositionEnd={() => {
+              //console.log('日本語入力が終わりました');
+              setIsComposed(false);
             }}
           />
           <Button
