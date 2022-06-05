@@ -1,4 +1,5 @@
-import firebase from "firebase";
+import firebase from "firebase/compat/app";
+import 'firebase/compat/database';
 
 const {
   REACT_APP_FIREBASE_API_KEY,
@@ -20,8 +21,8 @@ const firebaseConfig = {
   appId: REACT_APP_FIREBASE_APP_ID
 };
 
-firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
+const app = firebase.initializeApp(firebaseConfig);
+const database = app.database();
 export const messagesRef = database.ref('messages');
 
 export const pushMessage = ({ name, text }) => {
