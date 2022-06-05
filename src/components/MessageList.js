@@ -27,15 +27,17 @@ const MessageList = () => {
         return { key, ...nameAndText };
       });
       setMessages(newMessages);
-    })
-  }, [])
+    });
+  }, []);
+
+  const length = messages.length;
+
   return (
     <List className={classes.root}>
       {
-        messages.map(({ key, name, text }) => {
-          return <MessageItem key={key} name={name} text={text}>
-            item
-          </MessageItem>;
+        messages.map(({ key, name, text }, index) => {
+          const isLastItem = index + 1 === length;
+          return <MessageItem key={key} name={name} text={text} isLastItem={isLastItem} />;
         })
       }
     </List>
